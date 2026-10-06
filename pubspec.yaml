@@ -1,17 +1,21 @@
 name: dosya_programi
-description: Excel verilerinden olusturulan klasor/dosya yoneticisi.
+description: Is takip uygulamasi (musteri, makina, mazot, gider).
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.1.0+2
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   path_provider: ^2.1.4
+  pdf: ^3.11.1
+  share_plus: ^11.0.0
 
 flutter:
   uses-material-design: true
   assets:
     - assets/data.json
+    - assets/fonts/LiberationSans-Regular.ttf
+    - assets/fonts/LiberationSans-Bold.ttf
