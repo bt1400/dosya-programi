@@ -1,0 +1,33 @@
+name: APK Olustur
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Android proje iskeletini olustur ve kodumuzu uzerine kopyala
+        run: |
+          flutter create --platforms=android --org com.benim --project-name dosya_programi build_app
+          cp pubspec.yaml build_app/pubspec.yaml
+          rm -rf build_app/lib build_app/assets
+          cp -r lib build_app/lib
+          cp -r assets build_app/assets
+      - name: APK derle
+        working-directory: build_app
+        run: |
+          flutter pub get
+          flutter build apk --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dosya-programi-apk
+          path: build_app/build/app/outputs/flutter-apk/app-release.apk
